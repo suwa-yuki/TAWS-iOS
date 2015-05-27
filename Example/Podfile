@@ -1,0 +1,13 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'TAWS_Example', :exclusive => true do
+  pod "TAWS", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "TAWS", :path => "../"
+
+  pod 'Specta'
+  pod 'Expecta'
+end
