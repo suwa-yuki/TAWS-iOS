@@ -108,8 +108,8 @@ PODS:
   - Mantle/extobjc (1.5.4)
   - OCMock (3.1.2)
   - Reachability (3.2)
-  - Specta (1.0.0)
-  - TAWS (0.1.0):
+  - Specta (1.0.1)
+  - TAWS (0.0.1):
     - AWSiOSSDKv2 (~> 2.1.1)
     - Bolts (~> 1.1.5)
     - OCMock (~> 3.1.2)
@@ -147,10 +147,10 @@ SPEC CHECKSUMS:
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
-  TAWS: e01e99e0d04f174b3f5df39e6ebbd3063be51ee0
+  Specta: 097be314a75de103703a3bf9a529dc1a398509d7
+  TAWS: 902f448de1efd1bcd57b3143a66171161db482a3
   TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52
   UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
   XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.37.2
