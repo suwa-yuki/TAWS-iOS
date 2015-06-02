@@ -33,10 +33,10 @@ describe(@"AWSMock", ^{
                 AWSSNSCreateEndpointResponse *response = [AWSSNSCreateEndpointResponse new];
                 response.endpointArn = @"endpointxxxx";
                 
-                AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
-                                   receive:@selector(createPlatformEndpoint:)]
-                                      with:request]
-                                 andReturn:response];
+AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
+                   receive:@selector(createPlatformEndpoint:)]
+                      with:request]
+                 andReturn:response];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
                 [[sns createPlatformEndpoint:request] continueWithBlock:^id(BFTask *task) {
