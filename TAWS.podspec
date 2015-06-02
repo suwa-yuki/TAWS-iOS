@@ -12,7 +12,9 @@ Pod::Spec.new do |s|
   s.version          = "0.0.1"
   s.summary          = "Mock & Stub for AWSiOSSDKv2."
   s.description      = <<-DESC
-                       Mock & Stub for AWSiOSSDKv2.
+TAWS is a Mocking & Stubbing Library for [AWSiOSSDKv2](https://github.com/aws/aws-sdk-ios).
+`AWSMock` is simple class that can write stub & mock, it like RSpec.
+Let try mocking and stubbing to AWS!
                        DESC
   s.homepage         = "https://github.com/classmethod/TAWS-iOS"
   s.license          = 'MIT'

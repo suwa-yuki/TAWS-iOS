@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/TAWS.svg?style=flat)](http://cocoapods.org/pods/TAWS)
 
 TAWS is a Mocking & Stubbing Library for [AWSiOSSDKv2](https://github.com/aws/aws-sdk-ios).  
-`AWSMock` is simple class that can write stub & mock, it like RSpec.
+`AWSMock` is simple class that can write stub & mock, it like RSpec.  
 Let try mocking and stubbing to AWS!
 
 ## Usage
