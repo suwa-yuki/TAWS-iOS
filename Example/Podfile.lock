@@ -1,0 +1,156 @@
+PODS:
+  - AWSAutoScaling (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSCloudWatch (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSCore (2.1.1):
+    - Bolts (~> 1.1.0)
+    - GZIP (~> 1.0.3)
+    - Mantle (~> 1.4)
+    - Reachability (~> 3.1)
+    - UICKeyChainStore (~> 2.0)
+    - XMLDictionary (~> 1.4.0)
+  - AWSDynamoDB (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSEC2 (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSElasticLoadBalancing (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSiOSSDKv2 (2.1.1):
+    - AWSiOSSDKv2/AutoScaling (= 2.1.1)
+    - AWSiOSSDKv2/AWSCore (= 2.1.1)
+    - AWSiOSSDKv2/CloudWatch (= 2.1.1)
+    - AWSiOSSDKv2/DynamoDB (= 2.1.1)
+    - AWSiOSSDKv2/EC2 (= 2.1.1)
+    - AWSiOSSDKv2/ElasticLoadBalancing (= 2.1.1)
+    - AWSiOSSDKv2/Kinesis (= 2.1.1)
+    - AWSiOSSDKv2/S3 (= 2.1.1)
+    - AWSiOSSDKv2/SES (= 2.1.1)
+    - AWSiOSSDKv2/SimpleDB (= 2.1.1)
+    - AWSiOSSDKv2/SNS (= 2.1.1)
+    - AWSiOSSDKv2/SQS (= 2.1.1)
+  - AWSiOSSDKv2/AutoScaling (2.1.1):
+    - AWSAutoScaling (= 2.1.1)
+  - AWSiOSSDKv2/AWSCore (2.1.1):
+    - AWSCore (= 2.1.1)
+  - AWSiOSSDKv2/CloudWatch (2.1.1):
+    - AWSCloudWatch (= 2.1.1)
+  - AWSiOSSDKv2/DynamoDB (2.1.1):
+    - AWSDynamoDB (= 2.1.1)
+  - AWSiOSSDKv2/EC2 (2.1.1):
+    - AWSEC2 (= 2.1.1)
+  - AWSiOSSDKv2/ElasticLoadBalancing (2.1.1):
+    - AWSElasticLoadBalancing (= 2.1.1)
+  - AWSiOSSDKv2/Kinesis (2.1.1):
+    - AWSKinesis (= 2.1.1)
+  - AWSiOSSDKv2/S3 (2.1.1):
+    - AWSS3 (= 2.1.1)
+  - AWSiOSSDKv2/SES (2.1.1):
+    - AWSSES (= 2.1.1)
+  - AWSiOSSDKv2/SimpleDB (2.1.1):
+    - AWSSimpleDB (= 2.1.1)
+  - AWSiOSSDKv2/SNS (2.1.1):
+    - AWSSNS (= 2.1.1)
+  - AWSiOSSDKv2/SQS (2.1.1):
+    - AWSSQS (= 2.1.1)
+  - AWSKinesis (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - FMDB (~> 2.4)
+    - Mantle (~> 1.4)
+    - TMCache (~> 1.2.1)
+  - AWSS3 (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+    - TMCache (~> 1.2.1)
+  - AWSSES (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSSimpleDB (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSSNS (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSSQS (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - Bolts (1.1.5):
+    - Bolts/AppLinks (= 1.1.5)
+    - Bolts/Tasks (= 1.1.5)
+  - Bolts/AppLinks (1.1.5):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.1.5)
+  - Expecta (1.0.0)
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
+  - GZIP (1.0.3)
+  - Mantle (1.5.4):
+    - Mantle/extobjc (= 1.5.4)
+  - Mantle/extobjc (1.5.4)
+  - OCMock (3.1.2)
+  - Reachability (3.2)
+  - Specta (1.0.0)
+  - TAWS (0.1.0):
+    - AWSiOSSDKv2 (~> 2.1.1)
+    - Bolts (~> 1.1.5)
+    - OCMock (~> 3.1.2)
+  - TMCache (1.2.4)
+  - UICKeyChainStore (2.0.4)
+  - XMLDictionary (1.4)
+
+DEPENDENCIES:
+  - Expecta
+  - Specta
+  - TAWS (from `../`)
+
+EXTERNAL SOURCES:
+  TAWS:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AWSAutoScaling: 7dce9232ff39ba7261879ebee44e99e20ae19ddf
+  AWSCloudWatch: a71dec2b429d09e7d5baf2959548accf606b5f4e
+  AWSCore: 0e82eabc27a96d765b1e2ad4d30b96c1cd298300
+  AWSDynamoDB: 8afd8c76c9f19adfbd095abd3b6ca0cdb6a8c2e8
+  AWSEC2: 8ffacce17f49dd121ab18d468fae2db5db408500
+  AWSElasticLoadBalancing: a90d47b67609bcf2c1c2e3bccc23b51a9d0240d3
+  AWSiOSSDKv2: 4c97dae74014729e840146295edc1d6c023d176b
+  AWSKinesis: 4ef3a2c9683d50a4ccc2ecdd173c8b04ca9b6118
+  AWSS3: 891d269735be0f3c63eab5a2d1ee9d788f2c64ee
+  AWSSES: 04f6db9fcf3792a2374db5692701445df517e5f3
+  AWSSimpleDB: e863f52f11557d8af42e5fd47e702ea01e6446e2
+  AWSSNS: 49d9144ec52c8650ba9207232fdd17c68289fac8
+  AWSSQS: bb6b810a5d9826b4b25ed520e344b71a90d6e48f
+  Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  GZIP: f0863fda354e8f83316508c0a2c7bbe385e39129
+  Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
+  OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
+  TAWS: e01e99e0d04f174b3f5df39e6ebbd3063be51ee0
+  TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52
+  UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
+  XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
+
+COCOAPODS: 0.37.1
