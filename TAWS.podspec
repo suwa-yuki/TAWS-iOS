@@ -9,18 +9,15 @@
 
 Pod::Spec.new do |s|
   s.name             = "TAWS"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of TAWS."
+  s.version          = "0.0.1"
+  s.summary          = "Mock & Stub for AWSiOSSDKv2."
   s.description      = <<-DESC
-                       An optional longer description of TAWS
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       Mock & Stub for AWSiOSSDKv2.
                        DESC
-  s.homepage         = "https://github.com/classmethod/TAWS"
+  s.homepage         = "https://github.com/classmethod/TAWS-iOS"
   s.license          = 'MIT'
   s.author           = { "suwa.yuki" => "suwa.yuki@classmethod.jp" }
-  s.source           = { :git => "https://github.com/classmethod/TAWS.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/classmethod/TAWS-iOS.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/classmethod'
 
   s.platform     = :ios, '7.0'
