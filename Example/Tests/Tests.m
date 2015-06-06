@@ -7,7 +7,7 @@
 //
 
 #import <AWSSNS/AWSSNS.h>
-#import <TAWS/AWSMock.h>
+#import <TAWS/TAWS.h>
 
 @implementation AWSSNSCreatePlatformEndpointInput (test)
 
@@ -22,16 +22,16 @@ SpecBegin(InitialSpecs)
 
 describe(@"AWSMock", ^{
     
-    context(@"mocking AWS SNS", ^{
+    context(@"Mocking SNS", ^{
         
-        it(@"call CreatePlatformEndpoint and Succeed", ^{
+        it(@"Call CreatePlatformEndpoint and succeed", ^{
             
             waitUntil(^(DoneCallback done) {
                 
                 AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
                 request.token = @"token";
                 AWSSNSCreateEndpointResponse *response = [AWSSNSCreateEndpointResponse new];
-                response.endpointArn = @"endpointxxxx";
+                response.endpointArn = @"endpoint_xxxx";
                 
                 AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
                                    receive:@selector(createPlatformEndpoint:)]
@@ -41,7 +41,7 @@ describe(@"AWSMock", ^{
                 AWSSNS *sns = [AWSSNS defaultSNS];
                 [[sns createPlatformEndpoint:request] continueWithBlock:^id(BFTask *task) {
                     AWSSNSCreateEndpointResponse * response = task.result;
-                    expect(response.endpointArn).equal(@"endpointxxxx");
+                    expect(response.endpointArn).equal(@"endpoint_xxxx");
                     [mock verify];
                     done();
                     return nil;
@@ -51,25 +51,117 @@ describe(@"AWSMock", ^{
             
         });
         
-        it(@"call CreatePlatformEndpoint and Failed", ^{
+        it(@"Call CreatePlatformEndpoint and failed by error domain", ^{
             
             waitUntil(^(DoneCallback done) {
                 
                 AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
                 request.token = @"token";
                 AWSSNSCreateEndpointResponse *response = [AWSSNSCreateEndpointResponse new];
-                response.endpointArn = @"endpointxxxx";
+                response.endpointArn = @"endpoint_xxxx";
                 
                 AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
                                    receive:@selector(createPlatformEndpoint:)]
                                       with:request]
                             andErrorDomain:AWSSNSErrorDomain
-                                      type:AWSSNSErrorSubscriptionLimitExceeded];
+                                      type:AWSSNSErrorInvalidParameter];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
                 [[sns createPlatformEndpoint:request] continueWithBlock:^id(BFTask *task) {
                     expect(task.error).toNot.beNil();
+                    expect(task.error.domain).to.equal(AWSSNSErrorDomain);
+                    expect(task.error.code).to.equal(AWSSNSErrorInvalidParameter);
                     [mock verify];
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+    });
+    
+});
+
+describe(@"AWSStub", ^{
+    
+    context(@"Initialize", ^{
+        
+        it(@"Call conveniense constractor for succeed", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSSNSSubscribeInput *request = [AWSSNSSubscribeInput new];
+                request.endpoint = @"endpoint_xxxx";
+                
+                AWSSNSSubscribeResponse *response = [AWSSNSSubscribeResponse new];
+                response.subscriptionArn = @"expected_arn";
+                
+                [AWSStub stubWith:AWSServiceSNS
+                          receive:@selector(subscribe:)
+                             with:request
+                        andReturn:response];
+                
+                AWSSNS *sns = [AWSSNS defaultSNS];
+                [[sns subscribe:request] continueWithBlock:^id(BFTask *task) {
+                    AWSSNSSubscribeResponse *response = task.result;
+                    expect(response.subscriptionArn).equal(@"expected_arn");
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+        it(@"Call conveniense constractor and failed by NSError object", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSSNSSubscribeInput *request = [AWSSNSSubscribeInput new];
+                request.endpoint = @"endpoint_xxxx";
+                
+                NSError *error = [NSError errorWithDomain:AWSSNSErrorDomain
+                                                     code:AWSSNSErrorSubscriptionLimitExceeded
+                                                 userInfo:nil];
+                
+                [AWSStub stubWith:AWSServiceSNS
+                          receive:@selector(subscribe:)
+                             with:request
+                            error:error];
+                
+                AWSSNS *sns = [AWSSNS defaultSNS];
+                [[sns subscribe:request] continueWithBlock:^id(BFTask *task) {
+                    expect(task.error).toNot.beNil();
+                    expect(task.error.domain).to.equal(AWSSNSErrorDomain);
+                    expect(task.error.code).to.equal(AWSSNSErrorSubscriptionLimitExceeded);
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+        it(@"Call conveniense constractor and failed by error domain", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSSNSSubscribeInput *request = [AWSSNSSubscribeInput new];
+                request.endpoint = @"endpoint_xxxx";
+                
+                [AWSStub stubWith:AWSServiceSNS
+                          receive:@selector(subscribe:)
+                             with:request
+                      errorDomain:AWSSNSErrorDomain
+                        errorType:AWSSNSErrorSubscriptionLimitExceeded];
+                
+                AWSSNS *sns = [AWSSNS defaultSNS];
+                [[sns subscribe:request] continueWithBlock:^id(BFTask *task) {
+                    expect(task.error).toNot.beNil();
+                    expect(task.error.domain).to.equal(AWSSNSErrorDomain);
+                    expect(task.error.code).to.equal(AWSSNSErrorSubscriptionLimitExceeded);
                     done();
                     return nil;
                 }];

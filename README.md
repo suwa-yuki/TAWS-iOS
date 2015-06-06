@@ -12,14 +12,28 @@ Let try mocking and stubbing to AWS!
 ## Usage
 
 1. To run the example project, clone the repo, and run `pod install` from the Example directory first.
-2. `#import <TAWS/AWSMock.h>` in your test case.
+2. `#import <TAWS/TAWS.h>` in your test case.
 
 ### AWSMock
 ```objective-c
-AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
-                   receive:@selector(createPlatformEndpoint:)]
-                      with:request]
-                 andReturn:response];
+AWSMock *mock = [AWSMock mockWith:AWSServiceSNS
+                          receive:@selector(subscribe:)
+                             with:request 
+                        andReturn:response];
+
+// Call Subscribe API
+
+[mock verify];
+```
+
+### AWSStub
+`AWSStub` is alias to `AWSMock`.
+
+```objective-c
+AWSStub *stub = [AWSStub stubWith:AWSServiceSNS
+                          receive:@selector(subscribe:)
+                             with:request 
+                        andReturn:response];
 ```
 
 ## Requirements

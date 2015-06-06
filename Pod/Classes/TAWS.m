@@ -1,12 +1,12 @@
 //
-//  AWSMock.m
+//  TAWS.m
 //  TAWS
 //
 //  Created by suwa.yuki on 2015/05/26.
 //  Copyright (c) 2015 classmethod, Inc. All rights reserved.
 //
 
-#import "AWSMock.h"
+#import "TAWS.h"
 #import <AWSAutoScaling/AWSAutoScaling.h>
 #import <AWSCloudWatch/AWSCloudWatch.h>
 #import <AWSDynamoDB/AWSDynamoDB.h>
@@ -34,9 +34,71 @@
     return [[AWSMock alloc] initWithServiceType:serviceType];
 }
 
++ (instancetype)mockWith:(AWSServiceType)serviceType
+                 receive:(SEL)selector
+                    with:(id)request
+               andReturn:(id)response
+{
+    AWSMock *mock = [[AWSMock alloc] initWithServiceType:serviceType];
+    return [[[mock receive:selector] with:request] andReturn:response];
+}
+
++ (instancetype)mockWith:(AWSServiceType)serviceType
+                 receive:(SEL)selector with:(id)request
+                   error:(NSError *)error
+{
+    AWSMock *mock = [[AWSMock alloc] initWithServiceType:serviceType];
+    return [[[mock receive:selector] with:request] andError:error];
+}
+
++ (instancetype)mockWith:(AWSServiceType)serviceType
+                 receive:(SEL)selector
+                    with:(id)request
+             errorDomain:(NSString *)domain
+               errorType:(NSInteger)type
+{
+    AWSMock *mock = [[AWSMock alloc] initWithServiceType:serviceType];
+    return [[[mock receive:selector] with:request] andErrorDomain:domain type:type];
+}
+
 + (instancetype)stubWith:(AWSServiceType)serviceType
 {
-    return [[AWSMock alloc] initWithServiceType:serviceType];
+    return [AWSMock mockWith:serviceType];
+}
+
++ (instancetype)stubWith:(AWSServiceType)serviceType
+                 receive:(SEL)selector
+                    with:(id)request
+               andReturn:(id)response
+{
+    return [AWSMock mockWith:serviceType
+                     receive:selector
+                        with:request
+                   andReturn:response];
+}
+
++ (instancetype)stubWith:(AWSServiceType)serviceType
+                 receive:(SEL)selector
+                    with:(id)request
+                   error:(NSError *)error
+{
+    return [AWSMock mockWith:serviceType
+                     receive:selector
+                        with:request
+                       error:error];
+}
+
++ (instancetype)stubWith:(AWSServiceType)serviceType
+                 receive:(SEL)selector
+                    with:(id)request
+             errorDomain:(NSString *)domain
+               errorType:(NSInteger)type
+{
+    return [AWSMock mockWith:serviceType
+                     receive:selector
+                        with:request
+                 errorDomain:domain
+                   errorType:type];
 }
 
 - (instancetype)initWithServiceType:(AWSServiceType)serviceType
@@ -109,18 +171,18 @@
     return self;
 }
 
-- (id)with:(id)value
-{
-    [self createRecorder:value];
-    return self;
-}
-
 - (void)createRecorder:(id)value
 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     self.stubRecorder = OCMStub([self.mockObject performSelector:self.stubMethod withObject:value]);
 #pragma clang diagnostic pop
+}
+
+- (id)with:(id)value
+{
+    [self createRecorder:value];
+    return self;
 }
 
 - (id)andReturn:(id)value
