@@ -109,12 +109,12 @@ PODS:
   - OCMock (3.1.2)
   - Reachability (3.2)
   - Specta (1.0.1)
-  - TAWS (0.0.1):
+  - TAWS (0.0.2):
     - AWSiOSSDKv2 (~> 2.1.1)
     - Bolts (~> 1.1.5)
     - OCMock (~> 3.1.2)
   - TMCache (1.2.4)
-  - UICKeyChainStore (2.0.4)
+  - UICKeyChainStore (2.0.5)
   - XMLDictionary (1.4)
 
 DEPENDENCIES:
@@ -148,9 +148,9 @@ SPEC CHECKSUMS:
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Specta: 097be314a75de103703a3bf9a529dc1a398509d7
-  TAWS: 902f448de1efd1bcd57b3143a66171161db482a3
+  TAWS: 144aed61d7f5ada0f9800b57b71776b772b4f9d9
   TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52
-  UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
+  UICKeyChainStore: a389515ca090d4d49780fd563fec961571caa92b
   XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
 
 COCOAPODS: 0.37.2

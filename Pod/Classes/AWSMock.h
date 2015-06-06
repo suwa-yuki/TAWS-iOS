@@ -11,6 +11,8 @@
 #import <OCMock/OCMock.h>
 #import <OCMock/OCMStubRecorder.h>
 
+@compatibility_alias AWSStub AWSMock;
+
 /**
  *  AWS Mock Class.
  */
