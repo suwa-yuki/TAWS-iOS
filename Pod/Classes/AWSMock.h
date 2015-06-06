@@ -11,6 +11,7 @@
 #import <OCMock/OCMock.h>
 #import <OCMock/OCMStubRecorder.h>
 
+@class AWSMock;
 @compatibility_alias AWSStub AWSMock;
 
 /**
@@ -31,6 +32,15 @@
  *  @return AWSMock object
  */
 + (instancetype)mockWith:(AWSServiceType)serviceType;
+
+/**
+ *  Convinience constractor.
+ *
+ *  @param serviceType AWSServiceType
+ *
+ *  @return AWSMock object
+ */
++ (instancetype)stubWith:(AWSServiceType)serviceType;
 
 /**
  *  Set expect method.

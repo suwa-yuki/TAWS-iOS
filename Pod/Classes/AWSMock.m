@@ -34,6 +34,11 @@
     return [[AWSMock alloc] initWithServiceType:serviceType];
 }
 
++ (instancetype)stubWith:(AWSServiceType)serviceType
+{
+    return [[AWSMock alloc] initWithServiceType:serviceType];
+}
+
 - (instancetype)initWithServiceType:(AWSServiceType)serviceType
 {
     self = [super init];
@@ -98,14 +103,6 @@
     self.mockObject = mock;
 }
 
-- (void)createRecorder:(id)value
-{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    self.stubRecorder = OCMStub([self.mockObject performSelector:self.stubMethod withObject:value]);
-#pragma clang diagnostic pop
-}
-
 - (id)receive:(SEL)selector
 {
     self.stubMethod = selector;
@@ -116,6 +113,14 @@
 {
     [self createRecorder:value];
     return self;
+}
+
+- (void)createRecorder:(id)value
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    self.stubRecorder = OCMStub([self.mockObject performSelector:self.stubMethod withObject:value]);
+#pragma clang diagnostic pop
 }
 
 - (id)andReturn:(id)value
