@@ -1,6 +1,6 @@
 //
 //  TAWSTests.m
-//  TAWSTests
+//  TAWS
 //
 //  Created by suwa.yuki on 05/27/2015.
 //  Copyright (c) 2015 classmethod, Inc. All rights reserved.
@@ -33,10 +33,10 @@ describe(@"AWSMock", ^{
                 AWSSNSCreateEndpointResponse *response = [AWSSNSCreateEndpointResponse new];
                 response.endpointArn = @"endpointxxxx";
                 
-AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
-                   receive:@selector(createPlatformEndpoint:)]
-                      with:request]
-                 andReturn:response];
+                AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
+                                   receive:@selector(createPlatformEndpoint:)]
+                                      with:request]
+                                 andReturn:response];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
                 [[sns createPlatformEndpoint:request] continueWithBlock:^id(BFTask *task) {

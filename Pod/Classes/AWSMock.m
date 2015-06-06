@@ -7,7 +7,17 @@
 //
 
 #import "AWSMock.h"
+#import <AWSAutoScaling/AWSAutoScaling.h>
+#import <AWSCloudWatch/AWSCloudWatch.h>
+#import <AWSDynamoDB/AWSDynamoDB.h>
+#import <AWSEC2/AWSEC2.h>
+#import <AWSElasticLoadBalancing/AWSElasticLoadBalancing.h>
+#import <AWSKinesis/AWSKinesis.h>
+#import <AWSS3/AWSS3.h>
+#import <AWSSES/AWSSES.h>
 #import <AWSSNS/AWSSNS.h>
+#import <AWSSQS/AWSSQS.h>
+#import <AWSSimpleDB/AWSSimpleDB.h>
 
 @interface AWSMock ()
 
@@ -38,9 +48,49 @@
 {
     id mock = nil;
     switch (serviceType) {
+        case AWSServiceAutoScaling:
+            mock = OCMClassMock([AWSAutoScaling class]);
+            OCMStub([mock defaultAutoScaling]).andReturn(mock);
+            break;
+        case AWSServiceCloudWatch:
+            mock = OCMClassMock([AWSCloudWatch class]);
+            OCMStub([mock defaultCloudWatch]).andReturn(mock);
+            break;
+        case AWSServiceDynamoDB:
+            mock = OCMClassMock([AWSDynamoDB class]);
+            OCMStub([mock defaultDynamoDB]).andReturn(mock);
+            break;
+        case AWSServiceEC2:
+            mock = OCMClassMock([AWSEC2 class]);
+            OCMStub([mock defaultEC2]).andReturn(mock);
+            break;
+        case AWSServiceElasticLoadBalancing:
+            mock = OCMClassMock([AWSElasticLoadBalancing class]);
+            OCMStub([mock defaultElasticLoadBalancing]).andReturn(mock);
+            break;
+        case AWSServiceKinesis:
+            mock = OCMClassMock([AWSKinesis class]);
+            OCMStub([mock defaultKinesis]).andReturn(mock);
+            break;
+        case AWSServiceS3:
+            mock = OCMClassMock([AWSS3 class]);
+            OCMStub([mock defaultS3]).andReturn(mock);
+            break;
+        case AWSServiceSES:
+            mock = OCMClassMock([AWSSES class]);
+            OCMStub([mock defaultSES]).andReturn(mock);
+            break;
         case AWSServiceSNS:
             mock = OCMClassMock([AWSSNS class]);
             OCMStub([mock defaultSNS]).andReturn(mock);
+            break;
+        case AWSServiceSQS:
+            mock = OCMClassMock([AWSSQS class]);
+            OCMStub([mock defaultSQS]).andReturn(mock);
+            break;
+        case AWSServiceSimpleDB:
+            mock = OCMClassMock([AWSSimpleDB class]);
+            OCMStub([mock defaultSimpleDB]).andReturn(mock);
             break;
         default:
             break;
