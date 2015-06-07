@@ -7,6 +7,12 @@ PODS:
     - AWSCore (= 2.1.1)
     - Bolts (~> 1.1.0)
     - Mantle (~> 1.4)
+  - AWSCognito (2.1.1):
+    - AWSCore (~> 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+    - Reachability (~> 3.1)
+    - UICKeyChainStore (~> 2.0)
   - AWSCore (2.1.1):
     - Bolts (~> 1.1.0)
     - GZIP (~> 1.0.3)
@@ -69,6 +75,14 @@ PODS:
     - FMDB (~> 2.4)
     - Mantle (~> 1.4)
     - TMCache (~> 1.2.1)
+  - AWSLambda (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
+  - AWSMachineLearning (2.1.1):
+    - AWSCore (= 2.1.1)
+    - Bolts (~> 1.1.0)
+    - Mantle (~> 1.4)
   - AWSS3 (2.1.1):
     - AWSCore (= 2.1.1)
     - Bolts (~> 1.1.0)
@@ -109,8 +123,11 @@ PODS:
   - OCMock (3.1.2)
   - Reachability (3.2)
   - Specta (1.0.1)
-  - TAWS (0.0.2):
+  - TAWS (0.0.3):
+    - AWSCognito (~> 2.1.1)
     - AWSiOSSDKv2 (~> 2.1.1)
+    - AWSLambda (~> 2.1.1)
+    - AWSMachineLearning (~> 2.1.1)
     - Bolts (~> 1.1.5)
     - OCMock (~> 3.1.2)
   - TMCache (1.2.4)
@@ -129,12 +146,15 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AWSAutoScaling: 7dce9232ff39ba7261879ebee44e99e20ae19ddf
   AWSCloudWatch: a71dec2b429d09e7d5baf2959548accf606b5f4e
+  AWSCognito: c251f1f166c74343493451e238ca7157e1e33dda
   AWSCore: 0e82eabc27a96d765b1e2ad4d30b96c1cd298300
   AWSDynamoDB: 8afd8c76c9f19adfbd095abd3b6ca0cdb6a8c2e8
   AWSEC2: 8ffacce17f49dd121ab18d468fae2db5db408500
   AWSElasticLoadBalancing: a90d47b67609bcf2c1c2e3bccc23b51a9d0240d3
   AWSiOSSDKv2: 4c97dae74014729e840146295edc1d6c023d176b
   AWSKinesis: 4ef3a2c9683d50a4ccc2ecdd173c8b04ca9b6118
+  AWSLambda: aa3a493b5695f4c20e718d4e7642d27e2f03fa17
+  AWSMachineLearning: cf062b1360551574842614d0b9c6b505cf5fff8c
   AWSS3: 891d269735be0f3c63eab5a2d1ee9d788f2c64ee
   AWSSES: 04f6db9fcf3792a2374db5692701445df517e5f3
   AWSSimpleDB: e863f52f11557d8af42e5fd47e702ea01e6446e2
@@ -148,7 +168,7 @@ SPEC CHECKSUMS:
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Specta: 097be314a75de103703a3bf9a529dc1a398509d7
-  TAWS: 144aed61d7f5ada0f9800b57b71776b772b4f9d9
+  TAWS: e1043a3997c86e1d868e7379d13e6fec1b9f9ea3
   TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52
   UICKeyChainStore: a389515ca090d4d49780fd563fec961571caa92b
   XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724

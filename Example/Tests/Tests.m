@@ -9,10 +9,14 @@
 #import <TAWS/TAWS.h>
 #import <AWSAutoScaling/AWSAutoScaling.h>
 #import <AWSCloudWatch/AWSCloudWatch.h>
+#import <AWSCore/AWSCognitoIdentity.h>
+#import <AWSCognito/AWSCognitoSyncService.h>
 #import <AWSDynamoDB/AWSDynamoDB.h>
 #import <AWSEC2/AWSEC2.h>
 #import <AWSElasticLoadBalancing/AWSElasticLoadBalancing.h>
 #import <AWSKinesis/AWSKinesis.h>
+#import <AWSLambda/AWSLambda.h>
+#import <AWSMachineLearning/AWSMachineLearning.h>
 #import <AWSS3/AWSS3.h>
 #import <AWSSES/AWSSES.h>
 #import <AWSSNS/AWSSNS.h>
@@ -81,6 +85,66 @@ describe(@"AWSMock", ^{
                 [[cloudWatch describeAlarms:request] continueWithBlock:^id(BFTask *task) {
                     AWSCloudWatchDescribeAlarmsOutput *response = task.result;
                     expect(response.metricAlarms).to.equal(@[@"expect_value"]);
+                    [mock verify];
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+    });
+    
+    context(@"Mocking CognitoIdentity", ^{
+        
+        it(@"Call CreateIdentityPool and succeed", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSCognitoIdentityCreateIdentityPoolInput *request = [AWSCognitoIdentityCreateIdentityPoolInput new];
+                AWSCognitoIdentityIdentityPool *expectResponse = [AWSCognitoIdentityIdentityPool new];
+                expectResponse.identityPoolId = @"expect_value";
+                
+                AWSMock *mock = [AWSMock mockWith:AWSServiceCognitoIdentityBroker
+                                          receive:@selector(createIdentityPool:)
+                                             with:OCMOCK_ANY
+                                        andReturn:expectResponse];
+                
+                AWSCognitoIdentity *cognitoIdentity = [AWSCognitoIdentity defaultCognitoIdentity];
+                [[cognitoIdentity createIdentityPool:request] continueWithBlock:^id(BFTask *task) {
+                    AWSCognitoIdentityIdentityPool *response = task.result;
+                    expect(response.identityPoolId).to.equal(@"expect_value");
+                    [mock verify];
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+    });
+    
+    context(@"Mocking CognitoSync", ^{
+        
+        it(@"Call UpdateRecords and succeed", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSCognitoSyncUpdateRecordsRequest *request = [AWSCognitoSyncUpdateRecordsRequest new];
+                AWSCognitoSyncUpdateRecordsResponse *expectResponse = [AWSCognitoSyncUpdateRecordsResponse new];
+                expectResponse.records = @[@"expect_value"];
+                
+                AWSMock *mock = [AWSMock mockWith:AWSServiceCognitoService
+                                          receive:@selector(updateRecords:)
+                                             with:OCMOCK_ANY
+                                        andReturn:expectResponse];
+                
+                AWSCognitoSync *cognitoSync = [AWSCognitoSync defaultCognitoSync];
+                [[cognitoSync updateRecords:request] continueWithBlock:^id(BFTask *task) {
+                    AWSCognitoSyncUpdateRecordsResponse *response = task.result;
+                    expect(response.records).to.equal(@[@"expect_value"]);
                     [mock verify];
                     done();
                     return nil;
@@ -201,6 +265,67 @@ describe(@"AWSMock", ^{
                 [[kinesis putRecord:request] continueWithBlock:^id(BFTask *task) {
                     AWSKinesisPutRecordOutput *response = task.result;
                     expect(response.shardId).to.equal(@"expect_value");
+                    [mock verify];
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+    });
+    
+    context(@"Mocking Lambda", ^{
+        
+        it(@"Call Invoke and succeed", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSLambdaInvocationRequest *request = [AWSLambdaInvocationRequest new];
+                AWSLambdaInvocationResponse *expectResponse = [AWSLambdaInvocationResponse new];
+                expectResponse.payload = @{@"key":@"expect_value"};
+                
+                AWSMock *mock = [AWSMock mockWith:AWSServiceLambda
+                                          receive:@selector(invoke:)
+                                             with:OCMOCK_ANY
+                                        andReturn:expectResponse];
+                
+                AWSLambda *lambda = [AWSLambda defaultLambda];
+                [[lambda invoke:request] continueWithBlock:^id(BFTask *task) {
+                    AWSLambdaInvocationResponse *response = task.result;
+                    expect(response.payload).to.equal(@{@"key":@"expect_value"});
+                    [mock verify];
+                    done();
+                    return nil;
+                }];
+                
+            });
+            
+        });
+        
+    });
+    
+    context(@"Mocking MachineLearning", ^{
+        
+        it(@"Call Predict and succeed", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSMachineLearningPredictInput *request = [AWSMachineLearningPredictInput new];
+                AWSMachineLearningPredictOutput *expectResponse = [AWSMachineLearningPredictOutput new];
+                expectResponse.prediction = [AWSMachineLearningPrediction new];
+                expectResponse.prediction.predictedValue = @10;
+                
+                AWSMock *mock = [AWSMock mockWith:AWSServiceMachineLearning
+                                          receive:@selector(predict:)
+                                             with:OCMOCK_ANY
+                                        andReturn:expectResponse];
+                
+                AWSMachineLearning *ml = [AWSMachineLearning defaultMachineLearning];
+                [[ml predict:request] continueWithBlock:^id(BFTask *task) {
+                    AWSMachineLearningPredictOutput *response = task.result;
+                    expect(response.prediction.predictedValue).to.equal(@10);
                     [mock verify];
                     done();
                     return nil;

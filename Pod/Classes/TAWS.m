@@ -9,10 +9,14 @@
 #import "TAWS.h"
 #import <AWSAutoScaling/AWSAutoScaling.h>
 #import <AWSCloudWatch/AWSCloudWatch.h>
+#import <AWSCore/AWSCognitoIdentity.h>
+#import <AWSCognito/AWSCognitoSyncService.h>
 #import <AWSDynamoDB/AWSDynamoDB.h>
 #import <AWSEC2/AWSEC2.h>
 #import <AWSElasticLoadBalancing/AWSElasticLoadBalancing.h>
 #import <AWSKinesis/AWSKinesis.h>
+#import <AWSLambda/AWSLambda.h>
+#import <AWSMachineLearning/AWSMachineLearning.h>
 #import <AWSS3/AWSS3.h>
 #import <AWSSES/AWSSES.h>
 #import <AWSSNS/AWSSNS.h>
@@ -123,6 +127,14 @@
             mock = OCMClassMock([AWSCloudWatch class]);
             OCMStub([mock defaultCloudWatch]).andReturn(mock);
             break;
+        case AWSServiceCognitoIdentityBroker:
+            mock = OCMClassMock([AWSCognitoIdentity class]);
+            OCMStub([mock defaultCognitoIdentity]).andReturn(mock);
+            break;
+        case AWSServiceCognitoService:
+            mock = OCMClassMock([AWSCognitoSync class]);
+            OCMStub([mock defaultCognitoSync]).andReturn(mock);
+            break;
         case AWSServiceDynamoDB:
             mock = OCMClassMock([AWSDynamoDB class]);
             OCMStub([mock defaultDynamoDB]).andReturn(mock);
@@ -138,6 +150,14 @@
         case AWSServiceKinesis:
             mock = OCMClassMock([AWSKinesis class]);
             OCMStub([mock defaultKinesis]).andReturn(mock);
+            break;
+        case AWSServiceLambda:
+            mock = OCMClassMock([AWSLambda class]);
+            OCMStub([mock defaultLambda]).andReturn(mock);
+            break;
+        case AWSServiceMachineLearning:
+            mock = OCMClassMock([AWSMachineLearning class]);
+            OCMStub([mock defaultMachineLearning]).andReturn(mock);
             break;
         case AWSServiceS3:
             mock = OCMClassMock([AWSS3 class]);
