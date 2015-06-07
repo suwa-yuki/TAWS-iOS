@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "TAWS"
-  s.version          = "0.0.2"
+  s.version          = "0.0.3"
   s.summary          = "Mock & Stub for AWSiOSSDKv2."
   s.description      = <<-DESC
 TAWS is a Mocking & Stubbing Library for [AWSiOSSDKv2](https://github.com/aws/aws-sdk-ios).
