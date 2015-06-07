@@ -36,6 +36,23 @@ AWSStub *stub = [AWSStub stubWith:AWSServiceSNS
                         andReturn:response];
 ```
 
+## Suported Services
+- AWSAutoScaling
+- AWSCloudWatch
+- AWSCognitoIdentity
+- AWSCognitoSync
+- AWSDynamoDB
+- AWSEC2
+- AWSElasticLoadBalancing
+- AWSKinesis
+- AWSLambda
+- AWSMachineLearning
+- AWSS3
+- AWSSES
+- AWSSNS
+- AWSSQS
+- AWSSimpleDB
+
 ## Requirements
 
 TAWS require [AWSiOSSDKv2](https://github.com/aws/aws-sdk-ios).
