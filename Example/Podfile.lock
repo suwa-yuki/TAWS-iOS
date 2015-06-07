@@ -123,7 +123,7 @@ PODS:
   - OCMock (3.1.2)
   - Reachability (3.2)
   - Specta (1.0.1)
-  - TAWS (0.0.3):
+  - TAWS (0.0.4):
     - AWSCognito (~> 2.1.1)
     - AWSiOSSDKv2 (~> 2.1.1)
     - AWSLambda (~> 2.1.1)
@@ -168,7 +168,7 @@ SPEC CHECKSUMS:
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Specta: 097be314a75de103703a3bf9a529dc1a398509d7
-  TAWS: e1043a3997c86e1d868e7379d13e6fec1b9f9ea3
+  TAWS: dc9148e0c5748f7b78d384ab797ba522e33973a3
   TMCache: a93984b045a5ee84bd8941bd5e0b54296059cc52
   UICKeyChainStore: a389515ca090d4d49780fd563fec961571caa92b
   XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724

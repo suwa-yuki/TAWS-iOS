@@ -1,12 +1,12 @@
 //
-//  TAWS.m
+//  AWSMock.m
 //  TAWS
 //
 //  Created by suwa.yuki on 2015/05/26.
 //  Copyright (c) 2015 classmethod, Inc. All rights reserved.
 //
 
-#import "TAWS.h"
+#import "AWSMock.h"
 #import <AWSAutoScaling/AWSAutoScaling.h>
 #import <AWSCloudWatch/AWSCloudWatch.h>
 #import <AWSCore/AWSCognitoIdentity.h>
