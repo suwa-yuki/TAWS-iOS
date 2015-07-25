@@ -22,6 +22,7 @@
 #import <AWSSNS/AWSSNS.h>
 #import <AWSSQS/AWSSQS.h>
 #import <AWSSimpleDB/AWSSimpleDB.h>
+#import <AWSAPIGateway/AWSAPIGateway.h>
 
 @interface AWSMock ()
 
@@ -33,154 +34,121 @@
 
 @implementation AWSMock
 
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
 {
-    return [[AWSMock alloc] initWithServiceType:serviceType];
+    return [[AWSMock alloc] initWithClass:serviceClass];
 }
 
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                andReturn:(id)response
 {
-    AWSMock *mock = [[AWSMock alloc] initWithServiceType:serviceType];
+    AWSMock *mock = [[AWSMock alloc] initWithClass:serviceClass];
     return [[[mock receive:selector] with:request] andReturn:response];
 }
 
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
                  receive:(SEL)selector with:(id)request
                    error:(NSError *)error
 {
-    AWSMock *mock = [[AWSMock alloc] initWithServiceType:serviceType];
+    AWSMock *mock = [[AWSMock alloc] initWithClass:serviceClass];
     return [[[mock receive:selector] with:request] andError:error];
 }
 
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
              errorDomain:(NSString *)domain
                errorType:(NSInteger)type
 {
-    AWSMock *mock = [[AWSMock alloc] initWithServiceType:serviceType];
+    AWSMock *mock = [[AWSMock alloc] initWithClass:serviceClass];
     return [[[mock receive:selector] with:request] andErrorDomain:domain type:type];
 }
 
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
 {
-    return [AWSMock mockWith:serviceType];
+    return [AWSMock mockWith:serviceClass];
 }
 
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                andReturn:(id)response
 {
-    return [AWSMock mockWith:serviceType
+    return [AWSMock mockWith:serviceClass
                      receive:selector
                         with:request
                    andReturn:response];
 }
 
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                    error:(NSError *)error
 {
-    return [AWSMock mockWith:serviceType
+    return [AWSMock mockWith:serviceClass
                      receive:selector
                         with:request
                        error:error];
 }
 
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
              errorDomain:(NSString *)domain
                errorType:(NSInteger)type
 {
-    return [AWSMock mockWith:serviceType
+    return [AWSMock mockWith:serviceClass
                      receive:selector
                         with:request
                  errorDomain:domain
                    errorType:type];
 }
 
-- (instancetype)initWithServiceType:(AWSServiceType)serviceType
+- (instancetype)initWithClass:(Class)serviceClass
 {
     self = [super init];
     if (self) {
-        _serviceType = serviceType;
-        [self createMock:_serviceType];
+        _serviceClass = serviceClass;
+        [self createMock:serviceClass];
     }
     return self;
 }
 
-- (void)createMock:(AWSServiceType)serviceType
+- (void)createMock:(Class)serviceClass
 {
-    id mock = nil;
-    switch (serviceType) {
-        case AWSServiceAutoScaling:
-            mock = OCMClassMock([AWSAutoScaling class]);
-            OCMStub([mock defaultAutoScaling]).andReturn(mock);
-            break;
-        case AWSServiceCloudWatch:
-            mock = OCMClassMock([AWSCloudWatch class]);
-            OCMStub([mock defaultCloudWatch]).andReturn(mock);
-            break;
-        case AWSServiceCognitoIdentityBroker:
-            mock = OCMClassMock([AWSCognitoIdentity class]);
-            OCMStub([mock defaultCognitoIdentity]).andReturn(mock);
-            break;
-        case AWSServiceCognitoService:
-            mock = OCMClassMock([AWSCognitoSync class]);
-            OCMStub([mock defaultCognitoSync]).andReturn(mock);
-            break;
-        case AWSServiceDynamoDB:
-            mock = OCMClassMock([AWSDynamoDB class]);
-            OCMStub([mock defaultDynamoDB]).andReturn(mock);
-            break;
-        case AWSServiceEC2:
-            mock = OCMClassMock([AWSEC2 class]);
-            OCMStub([mock defaultEC2]).andReturn(mock);
-            break;
-        case AWSServiceElasticLoadBalancing:
-            mock = OCMClassMock([AWSElasticLoadBalancing class]);
-            OCMStub([mock defaultElasticLoadBalancing]).andReturn(mock);
-            break;
-        case AWSServiceKinesis:
-            mock = OCMClassMock([AWSKinesis class]);
-            OCMStub([mock defaultKinesis]).andReturn(mock);
-            break;
-        case AWSServiceLambda:
-            mock = OCMClassMock([AWSLambda class]);
-            OCMStub([mock defaultLambda]).andReturn(mock);
-            break;
-        case AWSServiceMachineLearning:
-            mock = OCMClassMock([AWSMachineLearning class]);
-            OCMStub([mock defaultMachineLearning]).andReturn(mock);
-            break;
-        case AWSServiceS3:
-            mock = OCMClassMock([AWSS3 class]);
-            OCMStub([mock defaultS3]).andReturn(mock);
-            break;
-        case AWSServiceSES:
-            mock = OCMClassMock([AWSSES class]);
-            OCMStub([mock defaultSES]).andReturn(mock);
-            break;
-        case AWSServiceSNS:
-            mock = OCMClassMock([AWSSNS class]);
-            OCMStub([mock defaultSNS]).andReturn(mock);
-            break;
-        case AWSServiceSQS:
-            mock = OCMClassMock([AWSSQS class]);
-            OCMStub([mock defaultSQS]).andReturn(mock);
-            break;
-        case AWSServiceSimpleDB:
-            mock = OCMClassMock([AWSSimpleDB class]);
-            OCMStub([mock defaultSimpleDB]).andReturn(mock);
-            break;
-        default:
-            break;
+    id mock = OCMClassMock(serviceClass);
+    if (serviceClass == [AWSAutoScaling class]) {
+        OCMStub([mock defaultAutoScaling]).andReturn(mock);
+    } else if (serviceClass == [AWSCloudWatch class]) {
+        OCMStub([mock defaultCloudWatch]).andReturn(mock);
+    } else if (serviceClass == [AWSCognitoIdentity class]) {
+        OCMStub([mock defaultCognitoIdentity]).andReturn(mock);
+    } else if (serviceClass == [AWSCognitoSync class]) {
+        OCMStub([mock defaultCognitoSync]).andReturn(mock);
+    } else if (serviceClass == [AWSDynamoDB class]) {
+        OCMStub([mock defaultDynamoDB]).andReturn(mock);
+    } else if (serviceClass == [AWSEC2 class]) {
+        OCMStub([mock defaultEC2]).andReturn(mock);
+    } else if (serviceClass == [AWSElasticLoadBalancing class]) {
+        OCMStub([mock defaultElasticLoadBalancing]).andReturn(mock);
+    } else if (serviceClass == [AWSKinesis class]) {
+        OCMStub([mock defaultKinesis]).andReturn(mock);
+    } else if (serviceClass == [AWSLambda class]) {
+        OCMStub([mock defaultLambda]).andReturn(mock);
+    } else if (serviceClass == [AWSMachineLearning class]) {
+        OCMStub([mock defaultMachineLearning]).andReturn(mock);
+    } else if (serviceClass == [AWSS3 class]) {
+        OCMStub([mock defaultS3]).andReturn(mock);
+    } else if (serviceClass == [AWSSES class]) {
+        OCMStub([mock defaultSES]).andReturn(mock);
+    } else if (serviceClass == [AWSSNS class]) {
+        OCMStub([mock defaultSNS]).andReturn(mock);
+    } else if (serviceClass == [AWSSQS class]) {
+        OCMStub([mock defaultSQS]).andReturn(mock);
+    } else if (serviceClass == [AWSSimpleDB class]) {
+        OCMStub([mock defaultSimpleDB]).andReturn(mock);
     }
     self.mockObject = mock;
 }
