@@ -7,7 +7,6 @@
 //
 
 #import <Bolts/Bolts.h>
-#import <AWSCore/AWSService.h>
 #import <OCMock/OCMock.h>
 #import <OCMock/OCMStubRecorder.h>
 
@@ -20,31 +19,31 @@
 @interface AWSMock : NSObject
 
 /**
- *  AWSServiceType.
+ *  AWSServiceClass.
  */
-@property (assign, nonatomic) AWSServiceType serviceType;
+@property (assign, nonatomic) Class serviceClass;
 
 /**
  *  Convinience constractor.
  *
- *  @param serviceType AWSServiceType
+ *  @param serviceClass Class
  *
  *  @return AWSMock object
  */
-+ (instancetype)mockWith:(AWSServiceType)serviceType;
++ (instancetype)mockWith:(Class)serviceClass;
 
 /**
  *  Convinience constractor.
  *  Initialize and set stub method, request, and response.
  *
- *  @param serviceType AWSServiceType
- *  @param selector    Expect method
- *  @param request     Request object
- *  @param response    Response object
+ *  @param serviceClass Class
+ *  @param selector     Expect method
+ *  @param request      Request object
+ *  @param response     Response object
  *
  *  @return AWSMock object
  */
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                andReturn:(id)response;
@@ -53,14 +52,14 @@
  *  Convinience constractor.
  *  Initialize and set stub method, error object.
  *
- *  @param serviceType AWSServiceType
- *  @param selector    Expect method
- *  @param request     Request object
- *  @param error       NSError object
+ *  @param serviceClass Class
+ *  @param selector     Expect method
+ *  @param request      Request object
+ *  @param error        NSError object
  *
  *  @return AWSMock object
  */
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                    error:(NSError *)error;
@@ -69,15 +68,15 @@
  *  Convinience constractor.
  *  Initialize and set stub method, error object.
  *
- *  @param serviceType AWSServiceType
- *  @param selector    Expect method
- *  @param request     Request object
- *  @param domain      Error domain
- *  @param type        Error type (code)
+ *  @param serviceClass Class
+ *  @param selector     Expect method
+ *  @param request      Request object
+ *  @param domain       Error domain
+ *  @param type         Error type (code)
  *
  *  @return AWSMock object
  */
-+ (instancetype)mockWith:(AWSServiceType)serviceType
++ (instancetype)mockWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
              errorDomain:(NSString *)domain
@@ -86,24 +85,24 @@
 /**
  *  Convinience constractor.
  *
- *  @param serviceType AWSServiceType
+ *  @param serviceClass Class
  *
  *  @return AWSMock object
  */
-+ (instancetype)stubWith:(AWSServiceType)serviceType;
++ (instancetype)stubWith:(Class)serviceClass;
 
 /**
  *  Convinience constractor.
  *  Initialize and set stub method, request, and response.
  *
- *  @param serviceType AWSServiceType
- *  @param selector    Expect method
- *  @param request     Request object
- *  @param response    Response object
+ *  @param serviceClass Class
+ *  @param selector     Expect method
+ *  @param request      Request object
+ *  @param response     Response object
  *
  *  @return AWSStub object
  */
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                andReturn:(id)response;
@@ -112,14 +111,14 @@
  *  Convinience constractor.
  *  Initialize and set stub method, error object.
  *
- *  @param serviceType AWSServiceType
- *  @param selector    Expect method
- *  @param request     Request object
- *  @param error       NSError object
+ *  @param serviceClass Class
+ *  @param selector     Expect method
+ *  @param request      Request object
+ *  @param error        NSError object
  *
  *  @return AWSStub object
  */
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
                    error:(NSError *)error;
@@ -128,15 +127,15 @@
  *  Convinience constractor.
  *  Initialize and set stub method, error object.
  *
- *  @param serviceType AWSServiceType
- *  @param selector    Expect method
- *  @param request     Request object
- *  @param domain      Error domain
- *  @param type        Error type (code)
+ *  @param serviceClass Class
+ *  @param selector     Expect method
+ *  @param request      Request object
+ *  @param domain       Error domain
+ *  @param type         Error type (code)
  *
  *  @return AWSStub object
  */
-+ (instancetype)stubWith:(AWSServiceType)serviceType
++ (instancetype)stubWith:(Class)serviceClass
                  receive:(SEL)selector
                     with:(id)request
              errorDomain:(NSString *)domain
