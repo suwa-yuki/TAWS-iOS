@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "TAWS"
-  s.version          = "0.0.4"
+  s.version          = "0.1.0"
   s.summary          = "Mock & Stub for AWSiOSSDKv2."
   s.description      = <<-DESC
 TAWS is a Mocking & Stubbing Library for [AWSiOSSDKv2](https://github.com/aws/aws-sdk-ios).
@@ -31,10 +31,23 @@ Let try mocking and stubbing to AWS!
   }
 
   s.public_header_files = 'Pod/Classes/**/*.h'
-  s.dependency 'AWSiOSSDKv2', '~> 2.1.1'
-  s.dependency 'AWSCognito', '~> 2.1.1'
-  s.dependency 'AWSLambda', '~> 2.1.1'
-  s.dependency 'AWSMachineLearning', '~> 2.1.1'
+  s.dependency 'AWSCore', '~> 2.2.2'
+  s.dependency 'AWSAutoScaling', '~> 2.2.2'
+  s.dependency 'AWSCloudWatch', '~> 2.2.2'
+  s.dependency 'AWSDynamoDB', '~> 2.2.2'
+  s.dependency 'AWSEC2', '~> 2.2.2'
+  s.dependency 'AWSElasticLoadBalancing', '~> 2.2.2'
+  s.dependency 'AWSKinesis', '~> 2.2.2'
+  s.dependency 'AWSMobileAnalytics', '~> 2.2.2'
+  s.dependency 'AWSS3', '~> 2.2.2'
+  s.dependency 'AWSSES', '~> 2.2.2'
+  s.dependency 'AWSSimpleDB', '~> 2.2.2'
+  s.dependency 'AWSSNS', '~> 2.2.2'
+  s.dependency 'AWSSQS', '~> 2.2.2'
+  s.dependency 'AWSCognito', '~> 2.2.2'
+  s.dependency 'AWSLambda', '~> 2.2.2'
+  s.dependency 'AWSMachineLearning', '~> 2.2.2'
+  s.dependency 'AWSAPIGateway', '~> 2.2.2'
   s.dependency 'OCMock', '~> 3.1.2'
   s.dependency 'Bolts', '~> 1.1.5'
 end

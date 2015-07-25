@@ -16,7 +16,7 @@ Let try mocking and stubbing to AWS!
 
 ### AWSMock
 ```objective-c
-AWSMock *mock = [AWSMock mockWith:AWSServiceSNS
+AWSMock *mock = [AWSMock mockWith:[AWSSNS class]
                           receive:@selector(subscribe:)
                              with:request 
                         andReturn:response];
@@ -30,7 +30,7 @@ AWSMock *mock = [AWSMock mockWith:AWSServiceSNS
 `AWSStub` is alias to `AWSMock`.
 
 ```objective-c
-AWSStub *stub = [AWSStub stubWith:AWSServiceSNS
+AWSStub *stub = [AWSStub stubWith:[AWSSNS class]
                           receive:@selector(subscribe:)
                              with:request 
                         andReturn:response];

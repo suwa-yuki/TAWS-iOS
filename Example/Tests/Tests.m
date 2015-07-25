@@ -7,9 +7,11 @@
 //
 
 #import <TAWS/TAWS.h>
+#import <AWSCore/AWSCore.h>
+#import <AWSCore/AWSCognitoIdentity.h>
+#import <AWSCognito/AWSCognitoService.h>
 #import <AWSAutoScaling/AWSAutoScaling.h>
 #import <AWSCloudWatch/AWSCloudWatch.h>
-#import <AWSCore/AWSCognitoIdentity.h>
 #import <AWSCognito/AWSCognitoSyncService.h>
 #import <AWSDynamoDB/AWSDynamoDB.h>
 #import <AWSEC2/AWSEC2.h>
@@ -22,15 +24,6 @@
 #import <AWSSNS/AWSSNS.h>
 #import <AWSSQS/AWSSQS.h>
 #import <AWSSimpleDB/AWSSimpleDB.h>
-
-@implementation AWSSNSCreatePlatformEndpointInput (test)
-
-- (BOOL)isEqual:(AWSSNSCreatePlatformEndpointInput*)object
-{
-    return [self.token isEqualToString:object.token];
-}
-
-@end
 
 SpecBegin(InitialSpecs)
 
@@ -46,13 +39,13 @@ describe(@"AWSMock", ^{
                 AWSAutoScalingAutoScalingGroupsType *expectResponse = [AWSAutoScalingAutoScalingGroupsType new];
                 expectResponse.autoScalingGroups = @[@"expect_value"];
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceAutoScaling
+                AWSMock *mock = [AWSMock mockWith:[AWSAutoScaling class]
                                           receive:@selector(describeAutoScalingGroups:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSAutoScaling *autoScaling = [AWSAutoScaling defaultAutoScaling];
-                [[autoScaling describeAutoScalingGroups:request] continueWithBlock:^id(BFTask *task) {
+                [[autoScaling describeAutoScalingGroups:request] continueWithBlock:^id(AWSTask *task) {
                     AWSAutoScalingAutoScalingGroupsType *response = task.result;
                     expect(response.autoScalingGroups).to.equal(@[@"expect_value"]);
                     [mock verify];
@@ -76,13 +69,13 @@ describe(@"AWSMock", ^{
                 AWSCloudWatchDescribeAlarmsOutput *expectResponse = [AWSCloudWatchDescribeAlarmsOutput new];
                 expectResponse.metricAlarms = @[@"expect_value"];
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceCloudWatch
+                AWSMock *mock = [AWSMock mockWith:[AWSCloudWatch class]
                                           receive:@selector(describeAlarms:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSCloudWatch *cloudWatch = [AWSCloudWatch defaultCloudWatch];
-                [[cloudWatch describeAlarms:request] continueWithBlock:^id(BFTask *task) {
+                [[cloudWatch describeAlarms:request] continueWithBlock:^id(AWSTask *task) {
                     AWSCloudWatchDescribeAlarmsOutput *response = task.result;
                     expect(response.metricAlarms).to.equal(@[@"expect_value"]);
                     [mock verify];
@@ -106,13 +99,13 @@ describe(@"AWSMock", ^{
                 AWSCognitoIdentityIdentityPool *expectResponse = [AWSCognitoIdentityIdentityPool new];
                 expectResponse.identityPoolId = @"expect_value";
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceCognitoIdentityBroker
+                AWSMock *mock = [AWSMock mockWith:[AWSCognitoIdentity class]
                                           receive:@selector(createIdentityPool:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSCognitoIdentity *cognitoIdentity = [AWSCognitoIdentity defaultCognitoIdentity];
-                [[cognitoIdentity createIdentityPool:request] continueWithBlock:^id(BFTask *task) {
+                [[cognitoIdentity createIdentityPool:request] continueWithBlock:^id(AWSTask *task) {
                     AWSCognitoIdentityIdentityPool *response = task.result;
                     expect(response.identityPoolId).to.equal(@"expect_value");
                     [mock verify];
@@ -136,13 +129,13 @@ describe(@"AWSMock", ^{
                 AWSCognitoSyncUpdateRecordsResponse *expectResponse = [AWSCognitoSyncUpdateRecordsResponse new];
                 expectResponse.records = @[@"expect_value"];
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceCognitoService
+                AWSMock *mock = [AWSMock mockWith:[AWSCognitoSync class]
                                           receive:@selector(updateRecords:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSCognitoSync *cognitoSync = [AWSCognitoSync defaultCognitoSync];
-                [[cognitoSync updateRecords:request] continueWithBlock:^id(BFTask *task) {
+                [[cognitoSync updateRecords:request] continueWithBlock:^id(AWSTask *task) {
                     AWSCognitoSyncUpdateRecordsResponse *response = task.result;
                     expect(response.records).to.equal(@[@"expect_value"]);
                     [mock verify];
@@ -166,13 +159,13 @@ describe(@"AWSMock", ^{
                 AWSDynamoDBGetItemOutput *expectResponse = [AWSDynamoDBGetItemOutput new];
                 expectResponse.item = @{@"name":@"expect_value"};
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceDynamoDB
+                AWSMock *mock = [AWSMock mockWith:[AWSDynamoDB class]
                                           receive:@selector(getItem:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSDynamoDB *dynamoDB = [AWSDynamoDB defaultDynamoDB];
-                [[dynamoDB getItem:request] continueWithBlock:^id(BFTask *task) {
+                [[dynamoDB getItem:request] continueWithBlock:^id(AWSTask *task) {
                     AWSDynamoDBGetItemOutput *response = task.result;
                     expect(response.item).to.equal(@{@"name":@"expect_value"});
                     [mock verify];
@@ -196,13 +189,13 @@ describe(@"AWSMock", ^{
                 AWSEC2DescribeInstancesResult *expectResponse = [AWSEC2DescribeInstancesResult new];
                 expectResponse.reservations = @[@"expect_value"];
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceEC2
+                AWSMock *mock = [AWSMock mockWith:[AWSEC2 class]
                                           receive:@selector(describeInstances:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSEC2 *ec2 = [AWSEC2 defaultEC2];
-                [[ec2 describeInstances:request] continueWithBlock:^id(BFTask *task) {
+                [[ec2 describeInstances:request] continueWithBlock:^id(AWSTask *task) {
                     AWSEC2DescribeInstancesResult *response = task.result;
                     expect(response.reservations).to.equal(@[@"expect_value"]);
                     [mock verify];
@@ -226,13 +219,13 @@ describe(@"AWSMock", ^{
                 AWSElasticLoadBalancingDescribeEndPointStateOutput *expectResponse = [AWSElasticLoadBalancingDescribeEndPointStateOutput new];
                 expectResponse.instanceStates = @[@"expect_value"];
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceElasticLoadBalancing
+                AWSMock *mock = [AWSMock mockWith:[AWSElasticLoadBalancing class]
                                           receive:@selector(describeInstanceHealth:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSElasticLoadBalancing *elb = [AWSElasticLoadBalancing defaultElasticLoadBalancing];
-                [[elb describeInstanceHealth:request] continueWithBlock:^id(BFTask *task) {
+                [[elb describeInstanceHealth:request] continueWithBlock:^id(AWSTask *task) {
                     AWSElasticLoadBalancingDescribeEndPointStateOutput *response = task.result;
                     expect(response.instanceStates).to.equal(@[@"expect_value"]);
                     [mock verify];
@@ -256,13 +249,13 @@ describe(@"AWSMock", ^{
                 AWSKinesisPutRecordOutput *expectResponse = [AWSKinesisPutRecordOutput new];
                 expectResponse.shardId = @"expect_value";
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceKinesis
+                AWSMock *mock = [AWSMock mockWith:[AWSKinesis class]
                                           receive:@selector(putRecord:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSKinesis *kinesis = [AWSKinesis defaultKinesis];
-                [[kinesis putRecord:request] continueWithBlock:^id(BFTask *task) {
+                [[kinesis putRecord:request] continueWithBlock:^id(AWSTask *task) {
                     AWSKinesisPutRecordOutput *response = task.result;
                     expect(response.shardId).to.equal(@"expect_value");
                     [mock verify];
@@ -286,13 +279,13 @@ describe(@"AWSMock", ^{
                 AWSLambdaInvocationResponse *expectResponse = [AWSLambdaInvocationResponse new];
                 expectResponse.payload = @{@"key":@"expect_value"};
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceLambda
+                AWSMock *mock = [AWSMock mockWith:[AWSLambda class]
                                           receive:@selector(invoke:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSLambda *lambda = [AWSLambda defaultLambda];
-                [[lambda invoke:request] continueWithBlock:^id(BFTask *task) {
+                [[lambda invoke:request] continueWithBlock:^id(AWSTask *task) {
                     AWSLambdaInvocationResponse *response = task.result;
                     expect(response.payload).to.equal(@{@"key":@"expect_value"});
                     [mock verify];
@@ -317,13 +310,13 @@ describe(@"AWSMock", ^{
                 expectResponse.prediction = [AWSMachineLearningPrediction new];
                 expectResponse.prediction.predictedValue = @10;
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceMachineLearning
+                AWSMock *mock = [AWSMock mockWith:[AWSMachineLearning class]
                                           receive:@selector(predict:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSMachineLearning *ml = [AWSMachineLearning defaultMachineLearning];
-                [[ml predict:request] continueWithBlock:^id(BFTask *task) {
+                [[ml predict:request] continueWithBlock:^id(AWSTask *task) {
                     AWSMachineLearningPredictOutput *response = task.result;
                     expect(response.prediction.predictedValue).to.equal(@10);
                     [mock verify];
@@ -347,13 +340,13 @@ describe(@"AWSMock", ^{
                 AWSS3CreateBucketOutput *expectResponse = [AWSS3CreateBucketOutput new];
                 expectResponse.location = @"expect_value";
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceS3
+                AWSMock *mock = [AWSMock mockWith:[AWSS3 class]
                                           receive:@selector(createBucket:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSS3 *s3 = [AWSS3 defaultS3];
-                [[s3 createBucket:request] continueWithBlock:^id(BFTask *task) {
+                [[s3 createBucket:request] continueWithBlock:^id(AWSTask *task) {
                     AWSS3CreateBucketOutput *response = task.result;
                     expect(response.location).to.equal(@"expect_value");
                     [mock verify];
@@ -377,13 +370,13 @@ describe(@"AWSMock", ^{
                 AWSSESSendEmailResponse *expectResponse = [AWSSESSendEmailResponse new];
                 expectResponse.messageId = @"expect_value";
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceSES
+                AWSMock *mock = [AWSMock mockWith:[AWSSES class]
                                           receive:@selector(sendEmail:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSSES *ses = [AWSSES defaultSES];
-                [[ses sendEmail:request] continueWithBlock:^id(BFTask *task) {
+                [[ses sendEmail:request] continueWithBlock:^id(AWSTask *task) {
                     AWSSESSendEmailResponse *response = task.result;
                     expect(response.messageId).to.equal(@"expect_value");
                     [mock verify];
@@ -408,13 +401,13 @@ describe(@"AWSMock", ^{
                 AWSSNSCreateEndpointResponse *expectResponse = [AWSSNSCreateEndpointResponse new];
                 expectResponse.endpointArn = @"endpoint_xxxx";
                 
-                AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
-                                   receive:@selector(createPlatformEndpoint:)]
-                                  with:request]
-                                 andReturn:expectResponse];
+                AWSMock *mock = [AWSMock mockWith:[AWSSNS class]
+                                          receive:@selector(createPlatformEndpoint:)
+                                             with:request
+                                        andReturn:expectResponse];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
-                [[sns createPlatformEndpoint:request] continueWithBlock:^id(BFTask *task) {
+                [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
                     AWSSNSCreateEndpointResponse * response = task.result;
                     expect(response.endpointArn).equal(@"endpoint_xxxx");
                     [mock verify];
@@ -433,14 +426,14 @@ describe(@"AWSMock", ^{
                 AWSSNSCreatePlatformEndpointInput *request = [AWSSNSCreatePlatformEndpointInput new];
                 request.token = @"token";
                 
-                AWSMock *mock = [[[[AWSMock mockWith:AWSServiceSNS]
-                                   receive:@selector(createPlatformEndpoint:)]
-                                  with:request]
-                                 andErrorDomain:AWSSNSErrorDomain
-                                 type:AWSSNSErrorInvalidParameter];
+                AWSMock *mock = [AWSMock mockWith:[AWSSNS class]
+                                          receive:@selector(createPlatformEndpoint:)
+                                             with:request
+                                      errorDomain:AWSSNSErrorDomain
+                                        errorType:AWSSNSErrorInvalidParameter];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
-                [[sns createPlatformEndpoint:request] continueWithBlock:^id(BFTask *task) {
+                [[sns createPlatformEndpoint:request] continueWithBlock:^id(AWSTask *task) {
                     expect(task.error).toNot.beNil();
                     expect(task.error.domain).to.equal(AWSSNSErrorDomain);
                     expect(task.error.code).to.equal(AWSSNSErrorInvalidParameter);
@@ -465,13 +458,13 @@ describe(@"AWSMock", ^{
                 AWSSQSSendMessageResult *expectResponse = [AWSSQSSendMessageResult new];
                 expectResponse.messageId = @"expect_value";
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceSQS
+                AWSMock *mock = [AWSMock mockWith:[AWSSQS class]
                                           receive:@selector(sendMessage:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSSQS *sqs = [AWSSQS defaultSQS];
-                [[sqs sendMessage:request] continueWithBlock:^id(BFTask *task) {
+                [[sqs sendMessage:request] continueWithBlock:^id(AWSTask *task) {
                     AWSSQSSendMessageResult *response = task.result;
                     expect(response.messageId).to.equal(@"expect_value");
                     [mock verify];
@@ -495,13 +488,13 @@ describe(@"AWSMock", ^{
                 AWSSimpleDBGetAttributesResult *expectResponse = [AWSSimpleDBGetAttributesResult new];
                 expectResponse.attributes = @[@"expect_value"];
                 
-                AWSMock *mock = [AWSMock mockWith:AWSServiceSimpleDB
+                AWSMock *mock = [AWSMock mockWith:[AWSSimpleDB class]
                                           receive:@selector(getAttributes:)
                                              with:OCMOCK_ANY
                                         andReturn:expectResponse];
                 
                 AWSSimpleDB *simpleDB = [AWSSimpleDB defaultSimpleDB];
-                [[simpleDB getAttributes:request] continueWithBlock:^id(BFTask *task) {
+                [[simpleDB getAttributes:request] continueWithBlock:^id(AWSTask *task) {
                     AWSSimpleDBGetAttributesResult *response = task.result;
                     expect(response.attributes).to.equal(@[@"expect_value"]);
                     [mock verify];
@@ -531,13 +524,13 @@ describe(@"AWSStub", ^{
                 AWSSNSSubscribeResponse *response = [AWSSNSSubscribeResponse new];
                 response.subscriptionArn = @"expected_arn";
                 
-                [AWSStub stubWith:AWSServiceSNS
+                [AWSStub stubWith:[AWSSNS class]
                           receive:@selector(subscribe:)
                              with:request
                         andReturn:response];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
-                [[sns subscribe:request] continueWithBlock:^id(BFTask *task) {
+                [[sns subscribe:request] continueWithBlock:^id(AWSTask *task) {
                     AWSSNSSubscribeResponse *response = task.result;
                     expect(response.subscriptionArn).equal(@"expected_arn");
                     done();
@@ -559,13 +552,13 @@ describe(@"AWSStub", ^{
                                                      code:AWSSNSErrorSubscriptionLimitExceeded
                                                  userInfo:nil];
                 
-                [AWSStub stubWith:AWSServiceSNS
+                [AWSStub stubWith:[AWSSNS class]
                           receive:@selector(subscribe:)
                              with:request
                             error:error];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
-                [[sns subscribe:request] continueWithBlock:^id(BFTask *task) {
+                [[sns subscribe:request] continueWithBlock:^id(AWSTask *task) {
                     expect(task.error).toNot.beNil();
                     expect(task.error.domain).to.equal(AWSSNSErrorDomain);
                     expect(task.error.code).to.equal(AWSSNSErrorSubscriptionLimitExceeded);
@@ -584,14 +577,14 @@ describe(@"AWSStub", ^{
                 AWSSNSSubscribeInput *request = [AWSSNSSubscribeInput new];
                 request.endpoint = @"endpoint_xxxx";
                 
-                [AWSStub stubWith:AWSServiceSNS
+                [AWSStub stubWith:[AWSSNS class]
                           receive:@selector(subscribe:)
                              with:request
                       errorDomain:AWSSNSErrorDomain
                         errorType:AWSSNSErrorSubscriptionLimitExceeded];
                 
                 AWSSNS *sns = [AWSSNS defaultSNS];
-                [[sns subscribe:request] continueWithBlock:^id(BFTask *task) {
+                [[sns subscribe:request] continueWithBlock:^id(AWSTask *task) {
                     expect(task.error).toNot.beNil();
                     expect(task.error.domain).to.equal(AWSSNSErrorDomain);
                     expect(task.error.code).to.equal(AWSSNSErrorSubscriptionLimitExceeded);
