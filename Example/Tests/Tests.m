@@ -600,4 +600,40 @@ describe(@"AWSStub", ^{
     
 });
 
+describe(@"AWSMobileAnalyticsStub", ^{
+    
+    context(@"Mocking MobileAnalytics", ^{
+        
+        it(@"Call SubmitEvents and succeed", ^{
+            
+            waitUntil(^(DoneCallback done) {
+                
+                AWSMobileAnalyticsMock *mock = [AWSMobileAnalyticsMock mockWithAppId:@"1234"];
+                [mock.eventClientMock shouldReceiveEvent:@"sample1" attribute:@"value" key:@"attribute_key"];
+                [mock.eventClientMock shouldReceiveEvent:@"sample2" metric:@10 key:@"metric_key"];
+                [mock.eventClientMock shouldReceive:@selector(submitEvents)];
+                
+                [AWSMobileAnalytics mobileAnalyticsForAppId:@"1234"
+                                              configuration:nil
+                                            completionBlock:^(AWSMobileAnalytics *analytics) {
+                                                id<AWSMobileAnalyticsEventClient> client = analytics.eventClient;
+                                                id<AWSMobileAnalyticsEvent> event1 = [client createEventWithEventType:@"sample1"];
+                                                [event1 addAttribute:@"value" forKey:@"attribute_key"];
+                                                id<AWSMobileAnalyticsEvent> event2 = [client createEventWithEventType:@"sample2"];
+                                                [event2 addMetric:@10 forKey:@"metric_key"];
+                                                [client recordEvent:event1];
+                                                [client recordEvent:event2];
+                                                [client submitEvents];
+                                                [mock.eventClientMock verify];
+                                                done();
+                                            }];
+                
+            });
+            
+        });
+        
+    });
+    
+});
+
 SpecEnd

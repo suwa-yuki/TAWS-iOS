@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 classmethod, Inc. All rights reserved.
 //
 
+#import "AWSMobileAnalyticsMock.h"
 #import <Bolts/Bolts.h>
 #import <OCMock/OCMock.h>
 #import <OCMock/OCMStubRecorder.h>
